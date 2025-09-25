@@ -1,6 +1,7 @@
 Here we see that one more time the executable prompts for a username and a password.
 This time looking at the decompiled code we see that it would be possible to attack this binary using a format string exploit, because it's calling printf with a variable format as parameter.
 
+# Locating the password
 The other thing we see is that the binary is reading the password we want (/home/users/level03/.pass) at the beginning of the file, that means that at the moment we use printf, the password is somewhere on the stack.
 Knowing it, we decide to use printf to print the stack, at least the 64 first values under the shape of hex pointers, so we can first measure the size of the printable stack.
 
@@ -117,6 +118,8 @@ Here is the result of this script.
 26 - 0x48336750664b394d does not have access!
 27 - (nil) does not have access!
 ```
+
+# Decoding the password
 The most random block we see is from line 22 to 26.
 so we try to decode and reverse those to big endian using python :
 
