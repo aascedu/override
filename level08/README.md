@@ -9,7 +9,7 @@ In order to copy the .pass file we must do these commands :
 ```
 cd /tmp 
 mkdir -p backups/home/users/level09
-/home/users/level08/level08 ./backups/home/users/level09/.pass
+/home/users/level08/level08 /home/users/level09/.pass
 ```
 
 We have the flag `fjAwpJNs2vvkFLRebEvAQ2hFZ4uQBWfHRsP62d8S`
