@@ -3,6 +3,12 @@
 #include <string.h>
 #include <stdint.h>
 
+typedef struct s_message {
+    char text[140];      // offset 0x00
+    char username[40];   // offset 0x8c
+    int len;             // offset 0xb4
+} t_message;
+
 void secret_backdoor(void)
 {
     char input[128];
