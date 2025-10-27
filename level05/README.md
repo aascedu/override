@@ -25,7 +25,7 @@ End of assembler dump.
 ### Now we have exit Global Offset Table address `0x080497e0`.
 We want to write to that address the address of our shellcode.
 
-Since our offsets are too big, we can't use the same strategy as in rainfall.  
+Since our offsets are too big, we can't use the same strategy as in rainfall.
 We must first write the 2 first bytes, then the two last bytes.
 
 To do so we will use a format string exploit.
@@ -50,10 +50,10 @@ We need to export our NOP sled + Shell Code :
 ## From here, it should be redone whenever you export SHELLCODE again
 When the shellcode is in the env, we need to find its address to know what to put in `VALUE1` and `VALUE2`.
 ```C
-(gdb) b main                
+(gdb) b main
 Breakpoint 1 at 0x8048449
 (gdb) r
-Starting program: /home/users/level05/level05 
+Starting program: /home/users/level05/level05
 
 Breakpoint 1, 0x08048449 in main ()
 (gdb) x/20s *(char**)environ
@@ -69,14 +69,14 @@ So let's use `0xffffde20`
 ```
 0xffffde20
   ^^^^
-  val1
+  val2
       ^^^^
-      val2
+      val1
 ```
 
-However, in the printf, we wrote a bit of data already, 8 bytes exactly, the 2 starting address we want to write with printf.  
-`VALUE1` will be de20 = 56864. /!\ However, we need to substract the 8 bytes already written : 56864 - 8 --> 56856.  
-`VALUE2` : ffff = 65535. /!\ However, we need to substract the 8 bytes AND the `VALUE1` already written : 65535 - 56856 - 8 --> 8671.  
+However, in the printf, we wrote a bit of data already, 8 bytes exactly, the 2 starting address we want to write with printf.
+`VALUE1` will be de20 = 56864. /!\ However, we need to substract the 8 bytes already written : 56864 - 8 --> 56856.
+`VALUE2` : ffff = 65535. /!\ However, we need to substract the 8 bytes AND the `VALUE1` already written : 65535 - 56856 - 8 --> 8671.
 
 The fully written payload is :
 
